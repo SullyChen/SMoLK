@@ -1,2 +1,2 @@
 # PPG-Learned-Kernels
-Learned Kernels for Interpretable and Efficient PPG Signal Quality Assessment and Artifact Segmentation
+This repository contains the notebook responsible for training and testing the models in our paper, [Learned Kernels for Interpretable and Efficient PPG Signal Quality Assessment and Artifact Segmentation](https://arxiv.org/abs/2307.05385). Please refer to the main Jupyter Notebook in this repository for the instructions and explanations surrounding this code. Thank you!
