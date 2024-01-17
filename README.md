@@ -12,3 +12,4 @@ scipy==1.9.3
 numpy==1.22.4
 tqdm==4.66.1
 ```
+Depending on your internet speed, this should only take around 20 minutes to install, though your times may vary depending on your machine. Machine-specific installation of PyTorch is recommended [here](https://pytorch.org/get-started/locally/)
