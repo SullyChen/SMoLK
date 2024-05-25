@@ -35,7 +35,7 @@ def generate_split(X, Y, split, num_splits):
     
     return np.asarray(X_train), np.asarray(Y_train), np.asarray(X_test), np.asarray(Y_test)
 
-def ZhengEtAl(base_dir, shuffle=True, verbose=True):
+def ZhengEtAl(base_dir, shuffle=True, verbose=True, resample_rate=64):
     classes_of_interest = [ 270492004, # 1st degree AV block
                         284470004, # Atrial premature beats
                         426783006, # Sinus rhythm
@@ -121,9 +121,9 @@ def ZhengEtAl(base_dir, shuffle=True, verbose=True):
         # resample
         temp = np.float32(X[i])
 
-        temp = resample(temp, len(temp) * 64 // 120)
+        temp = resample(temp, len(temp) * resample_rate // 120)
         #temp = highpass_filter(temp)
-        temp = bandpass_filter(temp, 1.0, 10.0, 64)
+        temp = bandpass_filter(temp, 1.0, 10.0, resample_rate)
 
         temp = (temp - np.mean(temp)) / np.std(temp)
 
@@ -242,14 +242,14 @@ def chunk(x, WINDOW_SIZE=640):
 
     return windows
 
-def chunk_data(X, Y):
+def chunk_data(X, Y, chunk_size=640):
     new_X = []
     new_Y = []
     PowerSpectra = []
 
     for i, x in enumerate(X):
-        if len(x) >= 640:
-            x_chunked = chunk(x)
+        if len(x) >= chunk_size:
+            x_chunked = chunk(x, chunk_size)
             y = [Y[i]] * len(x_chunked)
             new_X.extend(list(x_chunked))
             new_Y.extend(y)
@@ -282,7 +282,7 @@ def load_from_dir(signal_dir, label_dir, exclude_fns=[], verbose=True):
         
         return X, Y, train_files
 
-def CinC(base_dir, chunked=True, shuffle=True, verbose=True):
+def CinC(base_dir, chunked=True, shuffle=True, verbose=True, resample_rate=64, chunk_size=640):
     # Load Data
     classes = ["N", "A", "O", "~"]
 
@@ -301,16 +301,16 @@ def CinC(base_dir, chunked=True, shuffle=True, verbose=True):
         # resample
         temp = np.float32(X[i])
 
-        temp = resample(temp, len(temp) * 64 // 300)
+        temp = resample(temp, len(temp) * resample_rate // 300)
         #temp = highpass_filter(temp)
-        temp = bandpass_filter(temp, 1.0, 10.0, 64)
+        temp = bandpass_filter(temp, 1.0, 10.0, resample_rate)
 
         temp = (temp - np.mean(temp)) / np.std(temp)
 
         X[i] = np.float32(temp)
 
     if chunked:
-        X, Y = chunk_data(X, Y)
+        X, Y = chunk_data(X, Y, chunk_size)
     
     if shuffle:
         indices = np.arange(len(X))
