@@ -1,3 +1,4 @@
+[![DOI](https://zenodo.org/badge/694175632.svg)](https://zenodo.org/doi/10.5281/zenodo.13117607)
 # SMoLK
 This repository contains the notebook responsible for training and testing the models in our paper, [Learned Kernels for Sparse, Interpretable and Efficient PPG Signal Quality Assessment and Artifact Segmentation](https://arxiv.org/abs/2307.05385).
 
