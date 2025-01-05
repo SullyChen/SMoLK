@@ -14,3 +14,12 @@ numpy==1.22.4
 tqdm==4.66.1
 ```
 Depending on your internet speed, this should only take around 20 minutes to install, though your times may vary depending on your machine. Machine-specific installation of PyTorch is recommended [here](https://pytorch.org/get-started/locally/)
+
+## Generating the Datasets
+The Zheng et al. dataset can be found at [this PhysioNet Page](https://physionet.org/content/ecg-arrhythmia/1.0.0/), and the Computing in Cardiology 2017 dataset can be found at [this Physionet Page](https://physionet.org/content/challenge-2017/1.0.0/).
+
+First, create two new directories in the base Git repository, named `CinC` and `Zheng et al`. Next, unzip `training2017.zip` found in the Computing in Cardiology 2017 dataset at the above link. Move the contents of this unzipped file (it should be a single folder named `training2017`) into the `CinC` directory created earlier.
+
+For the Zheng et al. dataset, copy `ConditionNames_SNOMED-CT.csv` into `Zheng et al`, then use the `utils/preprocess_zhengetal.ipynb` notebook to generate the `preprocessed_data.pkl` file for this dataset. In the notebook, `base_dir` should point to the `WFDBRecords` directory in the downloaded PhysioNet dataset. After `preprocessed_data.pkl` is generated, move it to `Zheng et al`. If done properly, `CinC` should contain one directory, `training2017`, and `Zheng et al` should contain two files, `ConditionNames_SNOMED-CT.csv` and `preprocessed_data.pkl`. Both `training2017` and `Zheng et al` should be at the base of the SMoLK directory.
+
+The PPG dataset is included with this repository, thus no other steps need to be taken in this regard.
